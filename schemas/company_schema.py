@@ -1,4 +1,4 @@
-company_schema = {
+schema = {
     "type": "object",
     "properties": {
         "company_id": {

@@ -1,4 +1,4 @@
-one_user_schema = {
+schema = {
     "type": "object",
     "properties": {
         "first_name": {

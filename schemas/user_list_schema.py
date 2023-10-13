@@ -1,4 +1,4 @@
-user_list_schema = {
+schema = {
     "type": "object",
     "properties": {
         "meta": {

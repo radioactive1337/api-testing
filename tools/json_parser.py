@@ -1,5 +1,4 @@
 def get_data(keys: list | str, data: dict | list):
-    # body = data
     for key in keys:
         try:
             data = data[key]

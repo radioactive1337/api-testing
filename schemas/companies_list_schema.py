@@ -1,4 +1,4 @@
-companies_list_schema = {
+schema = {
     "type": "object",
     "properties": {
         "data": {

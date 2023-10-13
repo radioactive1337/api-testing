@@ -2,22 +2,18 @@ import requests
 import allure
 from jsonschema import validate
 from tools.logger import log
-from tools.data_loader import load_jsonschema
+from tools.data_loader import jsonschema_loader
 from tools.json_parser import get_data
 
 
 class Api:
-    _TIMEOUT = 5
-    _HEADERS = {'Content-Type': 'application/json; charset=utf-8'}
 
     def __init__(self):
         self.response = None
 
     @allure.step("Request Method: GET - url: {url}{endpoint}")
     def get(self, url: str, endpoint: str):
-        self.response = requests.get(url=f"{url}{endpoint}",
-                                     headers=self._HEADERS,
-                                     timeout=self._TIMEOUT)
+        self.response = requests.get(url=f"{url}{endpoint}")
         log(response=self.response)
         return self
 
@@ -25,38 +21,30 @@ class Api:
     def post(self, url: str, endpoint: str, params: dict = None,
              json_body: dict = None):
         self.response = requests.post(url=f"{url}{endpoint}",
-                                      headers=self._HEADERS,
                                       params=params,
-                                      json=json_body,
-                                      timeout=self._TIMEOUT)
+                                      json=json_body)
         log(response=self.response, request_body=json_body)
         return self
 
     @allure.step("Request Method: PUT - url: {url}{endpoint}")
     def put(self, url: str, endpoint: str, params: dict = None, json_body: dict = None):
         self.response = requests.put(url=f"{url}{endpoint}",
-                                     headers=self._HEADERS,
                                      params=params,
-                                     json=json_body,
-                                     timeout=self._TIMEOUT)
+                                     json=json_body)
         log(response=self.response, request_body=json_body)
         return self
 
     @allure.step("Request Method: PATCH - url: {url}{endpoint}")
     def patch(self, url: str, endpoint: str, params: dict = None, json_body: dict = None):
         self.response = requests.patch(url=f"{url}{endpoint}",
-                                       headers=self._HEADERS,
                                        params=params,
-                                       json=json_body,
-                                       timeout=self._TIMEOUT)
+                                       json=json_body)
         log(response=self.response, request_body=json_body)
         return self
 
     @allure.step("Request Method: DELETE - url: {url}{endpoint}")
     def delete(self, url: str, endpoint: str):
-        self.response = requests.delete(url=f"{url}{endpoint}",
-                                        headers=self._HEADERS,
-                                        timeout=self._TIMEOUT)
+        self.response = requests.delete(url=f"{url}{endpoint}")
         log(response=self.response)
         return self
 
@@ -67,8 +55,8 @@ class Api:
         return self
 
     @allure.step("jsonschema is valid")
-    def json_schema_should_be_valid(self, path_jsonschema: str, name_jsonschema: str = 'schema'):
-        json_schema = load_jsonschema(path_jsonschema, name_jsonschema)
+    def jsonschema_should_be_valid(self, path_jsonschema: str, name_jsonschema: str = 'schema'):
+        json_schema = jsonschema_loader(path_jsonschema, name_jsonschema)
         validate(self.response.json(), json_schema)
         return self
 
@@ -77,8 +65,8 @@ class Api:
         payload = get_data(keys, response)
         return payload
 
-    @allure.step("ОР: there is a desired value in the response")
-    def have_value_in_response_parameter(self, keys: list, value: str):
+    @allure.step("there is a desired value in the response")
+    def value_in_response_parameter(self, keys: list, value: str):
         payload = self.get_payload(keys)
         assert value == payload, f"\nExpected result:{value}\nActual result:{payload}"
         return self
