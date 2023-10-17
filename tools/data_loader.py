@@ -6,6 +6,6 @@ def jsonschema_loader(file: str, jsonschema: str = 'schema'):
     return getattr(module, jsonschema)
 
 
-def data_loader(path: str, test_data: str = "data"):
-    module = import_module(f"data.{path}")
+def data_loader(file: str, test_data: str = "data"):
+    module = import_module(f"data.{file}")
     return getattr(module, test_data)

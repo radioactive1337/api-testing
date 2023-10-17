@@ -13,7 +13,7 @@ def test_user_creation_valid(req_params):
     """
     SendrequestApi().create_user(request_body=req_params). \
         status_code_should_be(201). \
-        jsonschema_should_be_valid("user_creation_response_201"). \
+        jsonschema_should_be_valid("user_schema"). \
         value_in_response_parameter(["first_name"], req_params.first_name). \
         value_in_response_parameter(["last_name"], req_params.last_name)
 
@@ -26,7 +26,7 @@ def test_user_creation_invalid1(req_params):
     """
     SendrequestApi().create_user(request_body=req_params). \
         status_code_should_be(422). \
-        jsonschema_should_be_valid("user_creation_response_422")
+        jsonschema_should_be_valid("validation_error_schema")
 
 
 @allure.title("request to create a user using invalid data")

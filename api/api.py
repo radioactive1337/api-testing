@@ -11,44 +11,48 @@ class Api:
     def __init__(self):
         self.response = None
 
-    @allure.step("Request Method: GET - url: {url}{endpoint}")
-    def get(self, url: str, endpoint: str):
-        self.response = requests.get(url=f"{url}{endpoint}")
+    def get(self, url: str, endpoint: str, params: dict = None):
+        with allure.step(f"POST request на url: {url}{endpoint}\n"):
+            self.response = requests.get(url=f"{url}{endpoint}",
+                                         params=params)
         log(response=self.response)
         return self
 
-    @allure.step("Request Method: POST - url: {url}{endpoint}")
     def post(self, url: str, endpoint: str, params: dict = None,
              json_body: dict = None):
-        self.response = requests.post(url=f"{url}{endpoint}",
-                                      params=params,
-                                      json=json_body)
+        with allure.step(f"POST request на url: {url}{endpoint}\n"
+                         f"request body: {json_body}"):
+            self.response = requests.post(url=f"{url}{endpoint}",
+                                          params=params,
+                                          json=json_body)
         log(response=self.response, request_body=json_body)
         return self
 
-    @allure.step("Request Method: PUT - url: {url}{endpoint}")
     def put(self, url: str, endpoint: str, params: dict = None, json_body: dict = None):
-        self.response = requests.put(url=f"{url}{endpoint}",
-                                     params=params,
-                                     json=json_body)
+        with allure.step(f"PUT request на url: {url}{endpoint}\n"
+                         f"request body: {json_body}"):
+            self.response = requests.put(url=f"{url}{endpoint}",
+                                         params=params,
+                                         json=json_body)
         log(response=self.response, request_body=json_body)
         return self
 
-    @allure.step("Request Method: PATCH - url: {url}{endpoint}")
     def patch(self, url: str, endpoint: str, params: dict = None, json_body: dict = None):
-        self.response = requests.patch(url=f"{url}{endpoint}",
-                                       params=params,
-                                       json=json_body)
+        with allure.step(f"PATCH request на url: {url}{endpoint}\n"
+                         f"request body: {json_body}"):
+            self.response = requests.patch(url=f"{url}{endpoint}",
+                                           params=params,
+                                           json=json_body)
         log(response=self.response, request_body=json_body)
         return self
 
-    @allure.step("Request Method: DELETE - url: {url}{endpoint}")
     def delete(self, url: str, endpoint: str):
-        self.response = requests.delete(url=f"{url}{endpoint}")
+        with allure.step(f"DELETE request на url: {url}{endpoint}\n"):
+            self.response = requests.delete(url=f"{url}{endpoint}")
         log(response=self.response)
         return self
 
-    @allure.step("Status code is equal to {expected_codes}")
+    @allure.step("status code is equal to {expected_codes}")
     def status_code_should_be(self, *expected_codes):
         actual_code = self.response.status_code
         assert actual_code in expected_codes, f"Expected result:{expected_codes}\nActual result:{actual_code}"
