@@ -1,8 +1,8 @@
 from importlib import import_module
 
 
-def jsonschema_loader(path: str, jsonschema: str = 'schema'):
-    module = import_module(f"schemas.{path}")
+def jsonschema_loader(file: str, jsonschema: str = 'schema'):
+    module = import_module(f"schemas.{file}")
     return getattr(module, jsonschema)
 
 

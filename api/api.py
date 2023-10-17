@@ -48,15 +48,15 @@ class Api:
         log(response=self.response)
         return self
 
-    @allure.step("Status code is equal to {expected_code}")
-    def status_code_should_be(self, expected_code: int):
+    @allure.step("Status code is equal to {expected_codes}")
+    def status_code_should_be(self, *expected_codes):
         actual_code = self.response.status_code
-        assert expected_code == actual_code, f"\nExpected result:{expected_code}\nActual result:{actual_code}"
+        assert actual_code in expected_codes, f"Expected result:{expected_codes}\nActual result:{actual_code}"
         return self
 
     @allure.step("jsonschema is valid")
-    def jsonschema_should_be_valid(self, path_jsonschema: str, name_jsonschema: str = 'schema'):
-        json_schema = jsonschema_loader(path_jsonschema, name_jsonschema)
+    def jsonschema_should_be_valid(self, path_file: str, name_jsonschema: str = 'schema'):
+        json_schema = jsonschema_loader(path_file, name_jsonschema)
         validate(self.response.json(), json_schema)
         return self
 
@@ -68,5 +68,5 @@ class Api:
     @allure.step("there is a desired value in the response")
     def value_in_response_parameter(self, keys: list, value: str):
         payload = self.get_payload(keys)
-        assert value == payload, f"\nExpected result:{value}\nActual result:{payload}"
+        assert (value == payload), f"Expected result:{value}\nActual result:{payload}"
         return self
