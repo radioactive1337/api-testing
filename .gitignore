@@ -163,4 +163,4 @@ cython_debug/
 xmpl.py
 
 # test report folders
-testreport
+rep

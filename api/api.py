@@ -52,10 +52,10 @@ class Api:
         log(response=self.response)
         return self
 
-    @allure.step("status code is equal to {expected_codes}")
-    def status_code_should_be(self, *expected_codes):
+    @allure.step("status code is equal to {expected_code}")
+    def status_code_should_be(self, expected_code):
         actual_code = self.response.status_code
-        assert actual_code in expected_codes, f"Expected result:{expected_codes}\nActual result:{actual_code}"
+        assert actual_code == expected_code, f"Expected result:{expected_code}\nActual result:{actual_code}"
         return self
 
     @allure.step("jsonschema is valid")
