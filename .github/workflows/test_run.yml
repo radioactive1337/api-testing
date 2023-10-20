@@ -1,6 +1,6 @@
 name: api tests
 on:
-  push
+  workflow_dispatch
 jobs:
   test:
     runs-on: ubuntu-latest
