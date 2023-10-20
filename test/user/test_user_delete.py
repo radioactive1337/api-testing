@@ -11,7 +11,6 @@ from api.send_request_api import SendrequestApi
 class Test:
     @pytest.mark.parametrize("req_params", data_loader("user_data", "del_user_id"))
     @allure.title("request to delete a user")
-    @pytest.mark.flaky(max_runs=3)
     def test_deleting_user(self, req_params):
         """
         trying to delete user...
@@ -21,7 +20,6 @@ class Test:
 
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_del_user_id"))
     @allure.title("request to delete a user")
-    @pytest.mark.flaky(max_runs=3)
     def test_deleting_invalid_user(self, req_params):
         """
         trying to delete user...

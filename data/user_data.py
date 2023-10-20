@@ -30,6 +30,6 @@ invalid_update_data = [(0, UserModel(first_name="Astra", last_name="None", compa
                        (72, UserModel(first_name="Nobody", last_name="Nothing", company_id=9))]
 
 #   delete user
-del_user_id = [random.randint(2000, 4000)]
+del_user_id = [random.randint(2000, 3000)]
 
 invalid_del_user_id = [0, 99999999]

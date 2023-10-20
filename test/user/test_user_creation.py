@@ -11,6 +11,7 @@ from api.send_request_api import SendrequestApi
 class Test:
     @allure.title("request to create a user using valid data")
     @pytest.mark.parametrize("req_params", data_loader("user_data", "data"))
+    @pytest.mark.dev
     def test_user_creation_valid(self, req_params):
         """
         trying to create a user with valid data...
@@ -23,6 +24,7 @@ class Test:
 
     @allure.title("request to create a user using invalid data")
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_data1"))
+    @pytest.mark.prod
     def test_user_creation_invalid1(self, req_params):
         """
         trying to create a user with invalid data... (status code 422)
@@ -33,6 +35,7 @@ class Test:
 
     @allure.title("request to create a user using invalid data")
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_data2"))
+    @pytest.mark.prod
     def test_user_creation_invalid2(self, req_params):
         """
         trying to create a user with invalid data... (status code 404)
@@ -43,6 +46,7 @@ class Test:
 
     @allure.title("request to create a user using invalid data")
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_data3"))
+    @pytest.mark.prod
     def test_user_creation_invalid3(self, req_params):
         """
         trying to create a user with invalid data... (status code 400)
