@@ -3,7 +3,7 @@
 ## Description
 
 API framework for the practice of modules such as requests, allure and other tools \
-I used an open api [sendrequest](https://sendrequest.me/) \
+I used an open api [sendrequest](https://send-request.me/) \
 [Example of the allure report is shown here](https://radioactive1337.github.io/api-testing/)
 
 ## Project structure
