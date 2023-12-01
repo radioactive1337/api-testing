@@ -13,6 +13,7 @@ I used an open api [sendrequest](https://send-request.me/) \
 | api         | for work with api  |
 | data        | data for tests     |
 | data_models | pydantic models    |
+| enums       | constants          |
 | schemas     | jsonschemas        |
 | test        | api tests          |
 | tools       | some helpful tools |
