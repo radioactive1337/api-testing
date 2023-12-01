@@ -1,10 +1,10 @@
-# api-testing
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&random=false&width=435&lines=api-testing-prac)](https://git.io/typing-svg)
 
 ## Description
 
 API framework for the practice of modules such as requests, allure and other tools \
-I used an open api [sendrequest](https://sendrequest.me/) \
-[Example of the allure report is shown here](https://radioactive1337.github.io/api-testing/)
+I used an open api [sendrequest](https://send-request.me/) \
+[Example of the allure report is shown here](https://radioactive1337.github.io/api-testing-prac/)
 
 ## Project structure
 
