@@ -1,15 +1,20 @@
+import pytest
 import requests
 import allure
 from jsonschema import validate
 from tools.logger import log
 from tools.data_loader import jsonschema_loader
 from tools.json_parser import get_data
+from enums.global_enums import ErrorEnums
 
 
 class Api:
 
     def __init__(self):
         self.response = None
+
+    def __str__(self):
+        return f"{self.response.status_code}"
 
     def get(self, url: str, endpoint: str, params: dict = None):
         with allure.step(f"POST request на url: {url}{endpoint}\n"):
@@ -53,9 +58,14 @@ class Api:
         return self
 
     @allure.step("status code is equal to {expected_code}")
-    def status_code_should_be(self, expected_code):
+    def status_code_should_be(self, expected_code: list | int):
         actual_code = self.response.status_code
-        assert actual_code == expected_code, f"Expected result:{expected_code}\nActual result:{actual_code}"
+        if isinstance(expected_code, list):
+            assert actual_code in expected_code, (f"{ErrorEnums.WRONG_STATUS_CODE.value}\n"
+                                                  f"{self}")
+        else:
+            assert actual_code == expected_code, (f"{ErrorEnums.WRONG_STATUS_CODE.value}\n"
+                                                  f"{self}")
         return self
 
     @allure.step("jsonschema is valid")
@@ -69,8 +79,9 @@ class Api:
         payload = get_data(keys, response)
         return payload
 
-    @allure.step("there is a desired value in the response")
-    def value_in_response_parameter(self, keys: list, value: str):
+    @allure.step("Items with key: {keys} and value: {value} exist")
+    def check_value_in_response(self, keys: list, value: str):
         payload = self.get_payload(keys)
-        assert (value == payload), f"Expected result:{value}\nActual result:{payload}"
+        assert (value == payload), (f"{ErrorEnums.ITEM_DOES_NOT_EXIST.value}\n"
+                                    f"{self}")
         return self
