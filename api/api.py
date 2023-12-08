@@ -4,8 +4,8 @@ import allure
 from jsonschema import validate
 from tools.logger import log
 from tools.data_loader import jsonschema_loader
-from tools.json_parser import get_data
 from enums.global_enums import ErrorEnums
+from tools.json_handler import JsonHandler
 
 
 class Api:
@@ -74,14 +74,14 @@ class Api:
         validate(self.response.json(), json_schema)
         return self
 
-    def get_payload(self, keys: list):
+    def get_payload(self, key: str):
         response = self.response.json()
-        payload = get_data(keys, response)
+        payload = JsonHandler().get_value_by_key(key, response)
         return payload
 
-    @allure.step("Items with key: {keys} and value: {value} exist")
-    def check_value_in_response(self, keys: list, value: str):
-        payload = self.get_payload(keys)
+    @allure.step("Items with key: {key} and value: {value} exist")
+    def check_value_in_response(self, key: str, value: str):
+        payload = self.get_payload(key)
         assert (value == payload), (f"{ErrorEnums.ITEM_DOES_NOT_EXIST.value}\n"
                                     f"{self}")
         return self

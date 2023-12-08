@@ -21,8 +21,8 @@ class Test:
         SendrequestApi().create_user(req_body=req_params). \
             status_code_should_be(201). \
             jsonschema_should_be_valid("user_schema"). \
-            check_value_in_response(["first_name"], req_params.first_name). \
-            check_value_in_response(["last_name"], req_params.last_name)
+            check_value_in_response("first_name", req_params.first_name). \
+            check_value_in_response("last_name", req_params.last_name)
 
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_data1"))
     @allure.title("request to create a user using invalid data\n(params: {req_params})")
