@@ -17,4 +17,4 @@ class Test:
         """
         SendrequestApi().get_users_list(params=req_params). \
             status_code_should_be(200). \
-            jsonschema_should_be_valid("users_list_schema")
+            jsonschema_validation("users_list_schema")

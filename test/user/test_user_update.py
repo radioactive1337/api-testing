@@ -17,7 +17,7 @@ class Test:
         """
         SendrequestApi().update_user(uid=req_params, req_body=req_body). \
             status_code_should_be(200). \
-            jsonschema_should_be_valid("user_schema")
+            jsonschema_validation("user_schema")
 
     @pytest.mark.parametrize("req_params, req_body", data_loader("user_data", "invalid_update_data"))
     @allure.title("request to update a user")
@@ -27,4 +27,4 @@ class Test:
         """
         SendrequestApi().update_user(uid=req_params, req_body=req_body). \
             status_code_should_be(404). \
-            jsonschema_should_be_valid("error_schema")
+            jsonschema_validation("error_schema")

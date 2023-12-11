@@ -1,5 +1,5 @@
 from pydantic import BaseModel, conint
-from typing import Any
+from typing import Any, Optional
 
 
 class UserModel(BaseModel):
@@ -9,7 +9,7 @@ class UserModel(BaseModel):
 
 
 class UserModelResponse(BaseModel):
-    first_name: str
+    first_name: Optional[str]
     last_name: str
-    company_id: int
-    user_id: conint(ge=1, le=3)
+    company_id: Optional[conint(ge=1, le=3)]
+    user_id: int

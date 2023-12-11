@@ -1,4 +1,3 @@
-import pytest
 import requests
 import allure
 from jsonschema import validate
@@ -69,7 +68,7 @@ class Api:
         return self
 
     @allure.step("jsonschema is valid")
-    def jsonschema_should_be_valid(self, path_file: str, name_jsonschema: str = 'schema'):
+    def jsonschema_validation(self, path_file: str, name_jsonschema: str = 'schema'):
         json_schema = jsonschema_loader(path_file, name_jsonschema)
         validate(self.response.json(), json_schema)
         return self
@@ -84,4 +83,10 @@ class Api:
         payload = self.get_payload(key)
         assert (value == payload), (f"{ErrorEnums.ITEM_DOES_NOT_EXIST.value}\n"
                                     f"{self}")
+        return self
+
+    @allure.step("Response validation using pydantic")
+    def pydantic_validation(self, pydantic_model):
+        response = self.response.json()
+        pydantic_model.model_validate(response)
         return self

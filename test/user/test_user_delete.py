@@ -26,4 +26,4 @@ class Test:
         """
         SendrequestApi().delete_user(uid=req_params). \
             status_code_should_be(404). \
-            jsonschema_should_be_valid("error_schema")
+            jsonschema_validation("error_schema")
