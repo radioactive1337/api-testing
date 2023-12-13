@@ -81,8 +81,7 @@ class Api:
     @allure.step("Items with key: {key} and value: {value} exist")
     def check_value_in_response(self, key: str, value: str):
         payload = self.get_payload(key)
-        assert (value == payload), (f"{ErrorEnums.ITEM_DOES_NOT_EXIST.value}\n"
-                                    f"{self}")
+        assert (value == payload), f"{ErrorEnums.ITEM_DOES_NOT_EXIST.value}"
         return self
 
     @allure.step("Response validation using pydantic")
