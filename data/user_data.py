@@ -15,8 +15,7 @@ list_data = [UserListModel(limit=2, offset=0),
              UserListModel(limit=None, offset=0)]
 
 #   get one user
-user_ids = [68, 3012]
-invalid_user_ids = [-1, 0, 99999999999]
+invalid_user_ids = [-1, 0, 999999999999]
 
 #   update user
 update_data = [(68, UserModel(first_name="Astra", last_name="None", company_id=2)),

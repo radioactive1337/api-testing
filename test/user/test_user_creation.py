@@ -1,7 +1,5 @@
 import pytest
 import allure
-from pprint import pprint
-import json
 
 from tools.data_loader import data_loader
 from api.send_request_api import SendrequestApi
@@ -38,7 +36,7 @@ class Test:
         """
         created_user_response = SendrequestApi().create_user(req_body=req_params)
         created_user_response.status_code_should_be(422). \
-            jsonschema_validation("validation_error_schema"). \
+            jsonschema_validation("error_schema"). \
             pydantic_validation(ErrorModel)
 
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_data2"))
@@ -64,14 +62,3 @@ class Test:
         created_user_response.status_code_should_be(400). \
             jsonschema_validation("error_schema"). \
             pydantic_validation(ErrorModel)
-
-# @allure.title("request to create a user using invalid data")
-# @pytest.mark.parametrize("req_params", [invalid_data3, invalid_data2, invalid_data1])
-# @pytest.mark.prod
-# def test_user_creation_invalid3(self, req_params):
-#     """
-#     trying to create a user with invalid data... (status code 400,404,422)
-#     """
-#     SendrequestApi().create_user(req_body=req_params). \
-#         status_code_should_be([400, 404, 422]). \
-#         jsonschema_should_be_valid("error_schema")
