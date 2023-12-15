@@ -4,7 +4,7 @@ import allure
 from tools.data_loader import data_loader
 from api.send_request_api import SendrequestApi
 from data_models.user_model import UserModelResponse
-from data_models.error_model import ErrorModel
+from data_models.error_model import ErrorModelResponse
 
 
 @allure.epic("send-request api")
@@ -19,8 +19,8 @@ class Test:
         """
         trying to create a user with valid data...
         """
-        created_user_response = SendrequestApi().create_user(req_body=req_params)
-        created_user_response.status_code_should_be(201). \
+        create_user_response = SendrequestApi().create_user(req_body=req_params)
+        create_user_response.status_code_should_be(201). \
             pydantic_validation(UserModelResponse). \
             jsonschema_validation("user_schema"). \
             check_value_in_response("first_name", req_params.first_name). \
@@ -34,10 +34,10 @@ class Test:
         """
         trying to create a user with invalid data... (status code 422)
         """
-        created_user_response = SendrequestApi().create_user(req_body=req_params)
-        created_user_response.status_code_should_be(422). \
+        create_user_response = SendrequestApi().create_user(req_body=req_params)
+        create_user_response.status_code_should_be(422). \
             jsonschema_validation("error_schema"). \
-            pydantic_validation(ErrorModel)
+            pydantic_validation(ErrorModelResponse)
 
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_data2"))
     @allure.title("request to create a user using invalid data\n(params: {req_params})")
@@ -46,10 +46,10 @@ class Test:
         """
         trying to create a user with invalid data... (status code 404)
         """
-        created_user_response = SendrequestApi().create_user(req_body=req_params)
-        created_user_response.status_code_should_be(404). \
+        create_user_response = SendrequestApi().create_user(req_body=req_params)
+        create_user_response.status_code_should_be(404). \
             jsonschema_validation("error_schema"). \
-            pydantic_validation(ErrorModel)
+            pydantic_validation(ErrorModelResponse)
 
     @pytest.mark.parametrize("req_params", data_loader("user_data", "invalid_data3"))
     @allure.title("request to create a user using invalid data\n(params: {req_params})")
@@ -58,7 +58,7 @@ class Test:
         """
         trying to create a user with invalid data... (status code 400)
         """
-        created_user_response = SendrequestApi().create_user(req_body=req_params)
-        created_user_response.status_code_should_be(400). \
+        create_user_response = SendrequestApi().create_user(req_body=req_params)
+        create_user_response.status_code_should_be(400). \
             jsonschema_validation("error_schema"). \
-            pydantic_validation(ErrorModel)
+            pydantic_validation(ErrorModelResponse)

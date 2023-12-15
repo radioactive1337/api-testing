@@ -12,5 +12,5 @@ class Detail2(BaseModel):
     reason: str
 
 
-class ErrorModel(BaseModel):
+class ErrorModelResponse(BaseModel):
     detail: List[Detail1] | Detail2

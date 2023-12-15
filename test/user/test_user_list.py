@@ -3,6 +3,7 @@ import allure
 
 from tools.data_loader import data_loader
 from api.send_request_api import SendrequestApi
+from data_models.user_list_model import UserListModelResponse
 
 
 @allure.epic("send-request api")
@@ -15,6 +16,7 @@ class Test:
         """
         trying to get a list of users...
         """
-        SendrequestApi().get_users_list(params=req_params). \
-            status_code_should_be(200). \
-            jsonschema_validation("users_list_schema")
+        get_list_users_response = SendrequestApi().get_users_list(params=req_params)
+        get_list_users_response.status_code_should_be(200). \
+            jsonschema_validation("users_list_schema"). \
+            pydantic_validation(UserListModelResponse)

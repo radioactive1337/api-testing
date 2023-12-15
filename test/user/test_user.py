@@ -4,6 +4,7 @@ import allure
 from tools.data_loader import data_loader
 from api.send_request_api import SendrequestApi
 from data_models.user_model import UserModelResponse
+from data_models.error_model import ErrorModelResponse
 
 
 @allure.epic("send-request api")
@@ -18,8 +19,8 @@ class Test:
         trying to get info about valid user...
         """
         created_user = create_user_fixture(req_params)
-        user_response = SendrequestApi().get_one_user(created_user.get_payload("user_id"))
-        user_response.status_code_should_be(200). \
+        get_user_response = SendrequestApi().get_one_user(created_user.get_payload("user_id"))
+        get_user_response.status_code_should_be(200). \
             jsonschema_validation("user_schema"). \
             pydantic_validation(UserModelResponse). \
             check_value_in_response("first_name", created_user.get_payload("first_name")). \
@@ -35,4 +36,5 @@ class Test:
         """
         SendrequestApi().get_one_user(req_params). \
             status_code_should_be(404). \
-            jsonschema_validation("error_schema")
+            jsonschema_validation("error_schema"). \
+            pydantic_validation(ErrorModelResponse)
