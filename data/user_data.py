@@ -19,10 +19,11 @@ invalid_user_ids = [-1, 0, 999999999999]
 
 #   update user
 update_data = [(data[0], UserModelRequest(first_name="Astra", last_name="None", company_id=2)),
-               (data[1],UserModelRequest(first_name="Nobody", last_name="Nothing", company_id=None))]
+               (data[1], UserModelRequest(first_name="Nobody", last_name="Nothing", company_id=None))]
 invalid_update_data = [(data[0], UserModelRequest(first_name="Astra", last_name=None, company_id=2)),
                        (data[1], UserModelRequest(first_name="Nobody", last_name="Nothing", company_id=9))]
-
+invalid_update_data2 = [(0, UserModelRequest(first_name="Astra", last_name="None", company_id=2)),
+                        (99999999, UserModelRequest(first_name="Nobody", last_name="Nothing", company_id=None))]
 #   delete user
 del_user_id = [random.randint(2000, 3000)]
 invalid_del_user_id = [0, 99999999]
