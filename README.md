@@ -50,7 +50,7 @@ Create report page
 allure serve allurereport
 ~~~
 
-Also, you can create docker image and run it (with pre-installed docker ofc C:)
+Also, you can create docker image and run it
 
 ~~~bash
 docker build -t <your_image_name> .
@@ -65,7 +65,7 @@ docker run <your_image_name>
 Copy allure report from docker volume
 
 ~~~bash
-docker cp $(docker ps -a -q | head -1):<your path to workdir> .
+docker cp <container_name>:<volume_path> <host_path>
 ~~~
 
 Then create report page
